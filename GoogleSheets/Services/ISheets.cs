@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GoogleSheets.Services
 {
     public interface ISheets
     {
-       string GetName(string number);
+       List<string> ReturnName(string number);
     }
 }

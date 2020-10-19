@@ -24,7 +24,7 @@ namespace GoogleSheets.Controllers
         [HttpGet("{number}")]
         public async Task<ActionResult> GetAsync(string number)
         {
-            var data = _sheets.GetName(number);
+            var data = _sheets.ReturnName(number);
 
             if(data == null) return BadRequest("Not found");
 

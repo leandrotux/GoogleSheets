@@ -2,7 +2,9 @@
 using Google.Apis.Sheets.v4;
 using GoogleSheets.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace GoogleSheets.Services
 {
@@ -11,7 +13,7 @@ namespace GoogleSheets.Services
         private readonly string[] _scopes = { SheetsService.Scope.Spreadsheets };
         private SheetsService _service;
 
-        public string GetName(string number)
+        public List<string> ReturnName(string number)
         {
             GoogleCredential credential;
 
@@ -26,27 +28,17 @@ namespace GoogleSheets.Services
                 HttpClientInitializer = credential,
                 ApplicationName = Constants.ApplicationName,
             });
-            try
-            {
-                var request = _service.Spreadsheets.Values.Get(Constants.SpreadsheetId, Constants.Range);
-                var response = request.Execute();
-                var values = response.Values;
-                if (values != null && values.Count > 0)
-                {
-                    foreach (var row in values)
-                    {
-                        if (row[3].ToString().Equals(number))
-                        {
-                            return row[0].ToString();
-                        }
-                    }
-                }
-                return "Not found";
-            }
-            catch (Exception ex)
-            {
-                return "Internal error" + ex.Message.ToString();
-            }
+
+            var request = _service.Spreadsheets.Values.Get(Constants.SpreadsheetId, Constants.Range);
+            var response = request.Execute();
+            var values = response.Values;
+
+            var dados = values.Where(v => v.Any())
+                                     .Select(v => v[0].ToString())
+                                     .ToList();
+
+            return dados;
+
         }
     }
 }
