@@ -33,7 +33,7 @@ namespace GoogleSheets.Services
             var response = request.Execute();
             var values = response.Values;
 
-            var dados = values.Where(v => v.Any())
+            var dados = values.Where(v => v[3].ToString() == number)
                                      .Select(v => v[0].ToString())
                                      .ToList();
 

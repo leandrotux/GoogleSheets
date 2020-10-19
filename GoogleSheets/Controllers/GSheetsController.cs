@@ -26,7 +26,7 @@ namespace GoogleSheets.Controllers
         {
             var data = _sheets.ReturnName(number);
 
-            if(data == null) return BadRequest("Not found");
+            if(data.Count == 0) return BadRequest("Not found");
 
             return Ok(data);
 
