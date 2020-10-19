@@ -60,6 +60,8 @@ BenchmarkDotNet.Artifacts/
 project.lock.json
 project.fragment.lock.json
 artifacts/
+Credentials.json
+
 
 # StyleCop
 StyleCopReport.xml
